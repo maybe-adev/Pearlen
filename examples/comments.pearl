@@ -1,9 +1,9 @@
 # This is a line comment
-print("Line comment worked")
+show("Line comment worked")
 
 < This is a block comment />
-print("Block comment worked")
+show("Block comment worked")
 
 # You can combine them too
 < Hello Pearlen />
-print("Both comments running fine")
+show("Both comments running fine")

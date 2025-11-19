@@ -1,8 +1,8 @@
 message = "Pearlen is fun!"
 name = "Ayush"
 
-print(message)
-print("Hello " + name)
+show(message)
+show("Hello " + name)
 
 # String + string works
-print("A" + "B" + "C")
+show("A" + "B" + "C")

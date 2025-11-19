@@ -20,7 +20,7 @@
 
 - 📌 Variable declarations and assignments  
 - 🧮 Arithmetic expressions  
-- 🖨️ `print()` for output  
+- 🖨️ `show()` for output  
 - 📝 Strings (double quotes `" "`)  
 - 💬 Two types of comments:
   - `< This is a block comment />`
@@ -72,12 +72,12 @@ python cli.py examples/basics.pearl
 ### 1️⃣ basics.pearl
 
 ```pearl
-print("Hello from Pearlen")
+show("Hello from Pearlen")
 
 x = 10
 y = 20
 
-print(x + y)
+show(x + y)
 ```
 
 ---
@@ -86,14 +86,14 @@ print(x + y)
 
 ```pearl
 # This is a line comment
-print("Line comment works")
+show("Line comment works")
 
 < This is a block comment />
-print("Block comment works")
+show("Block comment works")
 
 # Mixing comments
 < Pearlen Language />
-print("Both comments running fine")
+show("Both comments running fine")
 ```
 
 ---
@@ -104,11 +104,11 @@ print("Both comments running fine")
 message = "Pearlen is fun!"
 name = "Ayush"
 
-print(message)
-print("Hello " + name)
+show(message)
+show("Hello " + name)
 
 # String concatenation
-print("A" + "B" + "C")
+show("A" + "B" + "C")
 ```
 
 ---
