@@ -1,5 +1,5 @@
 # 🌟 Pearlen — A Mini Programming Language
-<p align="center">
+<p align="left">
   <img src="https://img.shields.io/badge/Pearlen-Language-4C4CFF?style=for-the-badge" />
   <img src="https://img.shields.io/badge/version-0.1.0_Alpha-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/status-Active-brightgreen?style=for-the-badge" />
