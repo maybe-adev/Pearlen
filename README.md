@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/version-0.1.0_Alpha-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/status-Active-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Built%20With-Python-3670A0?style=for-the-badge&logo=python&logoColor=yellow" />
-  <img src="https://img.shields.io/badge/license-MIT-black?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/license-Apache%202.0-black?style=for-the-badge" />
 </p>
 
 ## 🚀 Features
@@ -141,5 +141,7 @@ If you want help implementing new features, just ask.
 
 ## ⭐ License
 
-MIT License — free to use, modify, and learn from.
+Pearlen is licensed under:
+Apache 2.0 License — see [LICENSE-APACHE](https://www.apache.org/licenses/LICENSE-2.0)
+
 
