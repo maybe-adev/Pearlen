@@ -8,8 +8,8 @@ def show_help():
 Pearlen CLI
 Usage:
   pearl <file.pearl>        Run a Pearlen file
-  pearl repl                Interactive mode
-  pearl version             Show version
+  pearl -i                  Interactive mode
+  pearl -v                  Show version
     """)
 
 def run_file(path):
@@ -38,10 +38,10 @@ if __name__ == "__main__":
     if cmd.endswith(".pearl"):
         run_file(cmd)
 
-    elif cmd == "repl":
+    elif cmd == "-i":
         repl()
 
-    elif cmd == "version":
+    elif cmd == "-v":
         print(VERSION)
 
     else:
