@@ -1,0 +1,8 @@
+message = "Pearlen is fun!"
+name = "Ayush"
+
+print(message)
+print("Hello " + name)
+
+# String + string works
+print("A" + "B" + "C")

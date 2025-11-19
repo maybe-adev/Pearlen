@@ -1,0 +1,9 @@
+# This is a line comment
+print("Line comment worked")
+
+< This is a block comment />
+print("Block comment worked")
+
+# You can combine them too
+< Hello Pearlen />
+print("Both comments running fine")

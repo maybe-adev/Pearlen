@@ -1,0 +1,5 @@
+a = 12
+b = 8
+show(a)
+show(b)
+show(a + b)

@@ -1,0 +1,8 @@
+x=15
+y=20
+
+if x < y:
+    show(y - x)
+else:
+    show(x - y)
+end
