@@ -1,0 +1,59 @@
+Pearlen is licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------------------
+
+Copyright (c) 2025 Ayush Baral
+
+A. HISTORY OF THE SOFTWARE
+==========================
+
+Pearlen was created in 2025 by Ayush Baral as an educational programming
+language designed to teach teens and school kids the basics of coding
+through a simple, approachable syntax.
+
+Pearlen draws inspiration from Python's readability and simplicity, while
+providing a small, easy-to-learn core that includes variables, arithmetic,
+if-else statements, loops, and print functionality.
+
+Many examples and tutorials included with Pearlen are freely available and
+dual-licensed under MIT and Apache 2.0 for maximum flexibility.
+
+----------------------------------------------------------------------
+
+B. TERMS AND CONDITIONS FOR ACCESSING OR OTHERWISE USING PEARLEN
+================================================================
+
+This software and documentation are licensed under the Apache License 2.0.
+You are free to:
+
+1. Use Pearlen for educational, personal, or commercial projects.
+2. Copy, modify, and distribute the software, provided that this license
+   notice is included in all copies or substantial portions of the software.
+3. Grant sublicenses of derivative works under the same terms.
+
+Pearlen is provided "AS IS", WITHOUT WARRANTY OF ANY KIND, either express
+or implied, including but not limited to warranties of MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, or non-infringement. In no event shall
+the authors or copyright holders be liable for any claim, damages, or
+other liability arising from the use of Pearlen.
+
+----------------------------------------------------------------------
+
+C. ACKNOWLEDGMENTS
+==================
+
+Thanks to the Python Software Foundation, the creators of educational
+languages, and all open-source contributors whose work inspired Pearlen.
+
+Special thanks to the early testers and contributors who provided feedback
+to make Pearlen a more approachable learning language.
