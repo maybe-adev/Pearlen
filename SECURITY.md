@@ -27,7 +27,6 @@ If you discover a security issue, we **strongly encourage responsible disclosure
 Please send details to:
 
 **[Mail Me](mailto:ayushbaral010@gmail.com)**
-*(Replace with your actual email or GitHub security advisory link.)*
 
 Alternatively, you can create a **private GitHub Security Advisory**:
 
