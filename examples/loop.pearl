@@ -1,6 +1,0 @@
-a=3
-b=4
-
-loop 5:
-    show(a + b)
-end

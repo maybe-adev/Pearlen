@@ -18,48 +18,173 @@ class Parser:
     def parse(self):
         statements = []
         while self.pos < len(self.tokens):
-            statements.append(self.statement())
+            stmt = self.statement()
+            if stmt is not None:
+                statements.append(stmt)
         return statements
 
-    # ----------------------------
-    # STATEMENTS
-    # ----------------------------
     def statement(self):
         tok_type, tok_val = self.peek()
-
-        if tok_type == "IDENT" and tok_val == "show":
+        if tok_type is None:
+            return None
+        if tok_type in ("NEWLINE", "DEDENT"):
+            self.eat(tok_type)
+            return self.statement()
+        if tok_type == "IF":
+            return self.if_stmt()
+        if tok_type == "SWITCH":
+            return self.switch_stmt()
+        if tok_type == "SHOW":
             return self.show_stmt()
-
         if tok_type == "IDENT":
             return self.assign_stmt()
+        if tok_type == "ELSE":
+            raise SyntaxError("Unexpected 'else' outside if-block")
+        raise SyntaxError(f"Unexpected token: {tok_type} {tok_val}")
 
-        raise SyntaxError(f"Unexpected token: {tok_val}")
+    # ------------------- IF / ELSE THEN IF / ELSE -------------------
+    def if_stmt(self):
+        self.eat("IF")
+        condition = self.expr()
+        self.eat("COLON")
+        self.eat("NEWLINE")
+        self.eat("INDENT")
+        then_block = self.block()
+        self.eat("DEDENT")
+
+        branches = [(condition, then_block)]
+
+        while True:
+            tok_type, _ = self.peek()
+            if tok_type != "ELSE":
+                break
+            self.eat("ELSE")
+            tok_type2, tok_val2 = self.peek()
+
+            if tok_type2 == "THEN":
+                self.eat("THEN")
+                if self.peek()[0] != "IF":
+                    raise SyntaxError("Expected 'if' after 'else then'")
+                self.eat("IF")
+
+                # Optional condition
+                cond_tok_type, _ = self.peek()
+                if cond_tok_type != "COLON":
+                    nested_condition = self.expr()
+                else:
+                    nested_condition = None
+
+                self.eat("COLON")
+                self.eat("NEWLINE")
+                self.eat("INDENT")
+                nested_block = self.block()
+                self.eat("DEDENT")
+                branches.append((nested_condition, nested_block))
+            else:
+                # else
+                self.eat("COLON")
+                self.eat("NEWLINE")
+                self.eat("INDENT")
+                else_block = self.block()
+                self.eat("DEDENT")
+                branches.append((None, else_block))
+                break
+
+        self.eat("END")
+        self.eat("NEWLINE")
+
+        # Build nested AST
+        ast = None
+        for cond, blk in reversed(branches):
+            if ast is None:
+                ast = ("IF", cond, blk, None)
+            else:
+                ast = ("IF", cond, blk, [ast])
+        return ast
+
+    # ------------------- SWITCH / OPTION / DEFAULT -------------------
+  
+    def switch_stmt(self):
+        self.eat("SWITCH")
+        expr = self.expr()
+        self.eat("COLON")
+        self.eat("NEWLINE")
+        self.eat("INDENT")
+    
+        cases = []
+        default_block = None
+    
+        while True:
+            tok_type, tok_val = self.peek()
+            if tok_type == "OPTION":
+                self.eat("OPTION")
+                value = self.expr()
+                self.eat("COLON")
+                self.eat("NEWLINE")
+                self.eat("INDENT")
+                block = self.block()
+                self.eat("DEDENT")
+                cases.append((value, block))
+            elif tok_type == "DEFAULT":
+                self.eat("DEFAULT")
+                self.eat("COLON")
+                self.eat("NEWLINE")
+                self.eat("INDENT")
+                default_block = self.block()
+                self.eat("DEDENT")
+            else:
+                break
+    
+        # Consume any DEDENTs before END
+        while self.peek()[0] == "DEDENT":
+            self.eat("DEDENT")
+    
+        self.eat("END")
+        self.eat("NEWLINE")
+    
+        return ("SWITCH", expr, cases, default_block)
+
+
+    def block(self):
+        statements = []
+        while True:
+            tok_type, _ = self.peek()
+            if tok_type in ("DEDENT", "END", None):
+                break
+            stmt = self.statement()
+            if stmt is not None:
+                statements.append(stmt)
+        return statements
+
+    def show_stmt(self):
+        self.eat("SHOW")
+        self.eat("LPAREN")
+        expr = self.expr()
+        self.eat("RPAREN")
+        if self.peek()[0] == "NEWLINE":
+            self.eat("NEWLINE")
+        return ("SHOW", expr)
 
     def assign_stmt(self):
         name = self.eat("IDENT")[1]
-        self.eat("OP", "=")
+        self.eat("ASSIGN")
         expr = self.expr()
+        if self.peek()[0] == "NEWLINE":
+            self.eat("NEWLINE")
         return ("ASSIGN", name, expr)
 
-    def show_stmt(self):
-        self.eat("IDENT")      # show
-        self.eat("OP", "(")
-        expr = self.expr()
-        self.eat("OP", ")")
-        return ("SHOW", expr)
-
-    # ----------------------------
-    # EXPRESSIONS (supports + - * / and parentheses)
-    # ----------------------------
-
+    # ------------------- Expressions -------------------
     def expr(self):
+        return self.compare()
+
+    def compare(self):
         node = self.term()
         while True:
-            tok = self.peek()
-            if tok[0] == "OP" and tok[1] in ("+", "-"):
-                op = self.eat("OP")[1]
+            tok_type, _ = self.peek()
+            if tok_type in ("EQEQ", "NOTEQ", "LT", "LTE", "GT", "GTE"):
+                op = self.eat(tok_type)[1]
                 right = self.term()
-                node = ("BINOP", op, node, right)
+                node = ("COMPARE", op, node, right)
             else:
                 break
         return node
@@ -67,9 +192,9 @@ class Parser:
     def term(self):
         node = self.factor()
         while True:
-            tok = self.peek()
-            if tok[0] == "OP" and tok[1] in ("*", "/"):
-                op = self.eat("OP")[1]
+            tok_type, _ = self.peek()
+            if tok_type in ("PLUS", "MINUS"):
+                op = self.eat(tok_type)[1]
                 right = self.factor()
                 node = ("BINOP", op, node, right)
             else:
@@ -77,21 +202,28 @@ class Parser:
         return node
 
     def factor(self):
-        tok_type, tok_val = self.peek()
+        node = self.atom()
+        while True:
+            tok_type, _ = self.peek()
+            if tok_type in ("MUL", "DIV"):
+                op = self.eat(tok_type)[1]
+                right = self.atom()
+                node = ("BINOP", op, node, right)
+            else:
+                break
+        return node
 
+    def atom(self):
+        tok_type, tok_val = self.peek()
         if tok_type == "NUMBER":
             return ("NUMBER", float(self.eat("NUMBER")[1]))
-
         if tok_type == "STRING":
             return ("STRING", self.eat("STRING")[1][1:-1])
-
         if tok_type == "IDENT":
             return ("VAR", self.eat("IDENT")[1])
-
-        if tok_type == "OP" and tok_val == "(":
-            self.eat("OP", "(")
+        if tok_type == "LPAREN":
+            self.eat("LPAREN")
             node = self.expr()
-            self.eat("OP", ")")
+            self.eat("RPAREN")
             return node
-
-        raise SyntaxError(f"Unexpected expression token: {tok_val}")
+        raise SyntaxError(f"Unexpected token in expression: {tok_type} {tok_val}")

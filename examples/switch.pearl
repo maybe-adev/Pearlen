@@ -1,0 +1,12 @@
+x = 3
+
+switch x:
+    option 1:
+        show("one")
+    option 2:
+        show("two")
+    option 3:
+        show("three")
+    default:
+        show("other")
+end

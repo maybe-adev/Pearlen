@@ -1,7 +1,7 @@
 import sys
 from interpreter.runner import run_program
 
-VERSION = "Pearlen 0.1.0 Alpha"
+VERSION = "Pearlen 0.1.1 Alpha"
 
 def show_help():
     print("""
