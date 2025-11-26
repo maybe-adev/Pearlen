@@ -1,7 +1,8 @@
 # 🌟 Pearlen — A Mini Programming Language
+
 <p align="left">
   <img src="https://img.shields.io/badge/Pearlen-Language-4C4CFF?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/version-0.1.0_Alpha-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/version-0.1.1_Alpha-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/status-Active-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Built%20With-Python-3670A0?style=for-the-badge&logo=python&logoColor=yellow" />
   <img src="https://img.shields.io/badge/license-Apache%202.0-black?style=for-the-badge" />
@@ -9,36 +10,22 @@
 
 ## 🚀 Features
 
-- 📌 Variable declarations and assignments  
-- 🧮 Arithmetic expressions  
-- 🖨️ `show()` for output  
-- 📝 Strings (double quotes `" "`)  
-- 💬 Two types of comments:
-  - `< This is a block comment />`
-  - `# This is a line comment`
+* 📌 Variable declarations and assignments
+* 🧮 Arithmetic expressions
+* 🖨️ `show()` for output
+* 📝 Strings (double quotes `" "`)
+* 💬 Two types of comments:
 
----
+  * `< This is a block comment />`
+  * `# This is a line comment`
+* 🔀 **Conditional statements**
 
-## 📁 Project Structure
+  * `if / else then if / else / end`
+  * Optional conditions on `else then if` (like `elif`)
+* 🔄 **Switch/Case statements**
 
-```
-
-Pearlen/
-│
-├── cli.py                  # Main CLI entry point
-├── README.md
-├── examples/               # Sample .pearl programs
-│   ├── basics.pearl
-│   ├── comments.pearl
-│   ├── strings.pearl
-│
-└── interpreter/
-├── lexer.py            # Tokenizer
-├── parser.py           # AST builder
-├── evaluator.py        # Expression evaluator
-└── runner.py           # Executes final AST
-
-````
+  * `switch <expr>: ... option <value>: ... default: ... end`
+  * Multiple option branches and default case supported
 
 ---
 
@@ -48,7 +35,7 @@ Run any `.pearl` file using:
 
 ```sh
 pearl examples/basics.pearl
-````
+```
 
 Or directly with Python:
 
@@ -104,6 +91,42 @@ show("A" + "B" + "C")
 
 ---
 
+### 4️⃣ conditionals.pearl
+
+```pearl
+x = 20
+y = 15
+
+if x > y:
+    show(y - x)
+else then if x == y:
+    show(x / y)
+else:
+    show(x - y)
+end
+```
+
+---
+
+### 5️⃣ switch.pearl
+
+```pearl
+x = 2
+
+switch x:
+    option 1:
+        show("one")
+    option 2:
+        show("two")
+    option 3:
+        show("three")
+    default:
+        show("other")
+end
+```
+
+---
+
 ## 💡 Comment Syntax
 
 ### ✔ Block Comment
@@ -124,7 +147,6 @@ Ignored by the lexer.
 
 ## 🧠 Future Features (Planned)
 
-* Conditionals (`if / else`)
 * Loops (`while`)
 * Functions
 * Imports
@@ -145,3 +167,4 @@ Pearlen is licensed under:
 Apache 2.0 License — see [LICENSE-APACHE](https://www.apache.org/licenses/LICENSE-2.0)
 
 
+Do you want me to do that?
