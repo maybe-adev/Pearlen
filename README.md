@@ -165,6 +165,3 @@ If you want help implementing new features, just ask.
 
 Pearlen is licensed under:
 Apache 2.0 License — see [LICENSE-APACHE](https://www.apache.org/licenses/LICENSE-2.0)
-
-
-Do you want me to do that?
