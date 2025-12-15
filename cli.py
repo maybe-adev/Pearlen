@@ -13,25 +13,47 @@ Usage:
     """)
 
 def run_file(path):
+    if not path.endswith(".pearl"):
+        print_error("only .pearl files are supported.")
+        return
+
     try:
         with open(path, "r") as f:
             code = f.read()
         run_program(code)
     except FileNotFoundError:
-        print(f"Error: file '{path}' not found.")
+        print_error(f"file '{path}' not found.")
+    except (SyntaxError, ValueError, NameError) as e:
+        print_error(str(e))
+    except Exception as e:
+        print_error(f"an unexpected error occurred: {e}")
 
 def repl():
     print("Pearlen REPL — type 'exit' to quit")
     while True:
-        line = input("pearlen> ").strip()
-        if line == "exit":
+        try:
+            line = input("pearlen> ").strip()
+            if line == "exit":
+                break
+            run_program(line)
+            if line == "":
+                continue
+        # Handling Ctrl + D on Mac/Linux or Ctrl + Z on Windows then Enter
+        except EOFError:
+            print("\nExiting Pearlen REPL.")
             break
-        run_program(line)
+        except (SyntaxError, ValueError, NameError) as e:
+            print_error(str(e))
+        except Exception as e:
+            print_error(f"an unexpected error occurred: {e}")
+
+def print_error(message):
+    print(f"Error: {message}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         show_help()
-        sys.exit()
+        sys.exit(0)
 
     cmd = sys.argv[1]
 
